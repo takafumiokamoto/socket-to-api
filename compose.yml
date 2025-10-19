@@ -1,0 +1,37 @@
+services:
+  oracle-xe:
+    build:
+      context: ./database
+      dockerfile: dockerfile
+    container_name: oracle-xe
+    ports:
+      - "1521:1521"
+      - "5500:5500"
+    environment:
+      - ORACLE_PASSWORD=oracle
+      - APP_USER=app
+      - APP_USER_PASSWORD=app
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    healthcheck:
+      test: ["CMD", "healthcheck.sh"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: socket-to-api-app
+    depends_on:
+      oracle-xe:
+        condition: service_healthy
+    environment:
+      - DB_HOST=oracle-xe
+      - DB_SERVICE=XEPDB1
+      - DB_USER=app
+      - DB_PASSWORD=app
+
+volumes:
+  oracle-data:

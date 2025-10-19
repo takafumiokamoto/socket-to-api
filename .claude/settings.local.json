@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "Bash(docker-compose up --build app)",
+      "Bash(DB_HOST=localhost DB_SERVICE=XEPDB1 DB_USER=app DB_PASSWORD=app ./app.exe)",
+      "Bash(set DB_HOST=localhost)",
+      "Bash(set DB_SERVICE=XEPDB1)",
+      "Bash(set DB_USER=app)",
+      "Bash(set DB_PASSWORD=app)",
+      "Bash(app.exe)",
+      "Bash(docker-compose build app)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

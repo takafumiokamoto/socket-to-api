@@ -1,0 +1,8 @@
+    # Oracle XE Database
+    # Connection for app user: app/app@localhost:1521/XEPDB1
+    # Connection for system user: system/oracle@localhost:1521/XE
+    # Note: APP_USER is created in the pluggable database (XEPDB1), not the container database (XE)
+    FROM gvenzl/oracle-xe:latest
+
+    # Copy initialization script - will be executed on first startup
+    COPY init.sql /container-entrypoint-initdb.d/
